@@ -35,10 +35,12 @@
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"test"];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"test"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"test"];
     }
     MPMediaItem *item = [self.songColleciton objectAtIndex:indexPath.row];
-    cell.textLabel.text = item.title;
+    cell.textLabel.text = [item valueForProperty: MPMediaItemPropertyTitle];
+    MPMediaItemArtwork *artWork = [item valueForProperty: MPMediaItemPropertyArtwork];
+    cell.imageView.image = [artWork imageWithSize:cell.imageView.frame.size];
     cell.detailTextLabel.text = item.artist;
     return cell;
 }
